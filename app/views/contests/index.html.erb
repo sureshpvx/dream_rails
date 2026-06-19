@@ -1,0 +1,16 @@
+<% content_for :title, "Contests - DreamRails" %>
+
+<section class="space-y-5">
+  <div>
+    <p class="text-sm font-semibold text-emerald-300"><%= @match ? @match.matchup : "All matches" %></p>
+    <h1 class="mt-2 text-3xl font-bold">Contests</h1>
+  </div>
+
+  <% if @contests.any? %>
+    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <%= render partial: "components/contest_card", collection: @contests, as: :contest %>
+    </div>
+  <% else %>
+    <%= render "shared/empty_state", title: "No contests available", body: "Be the first to create a contest for this match." %>
+  <% end %>
+</section>

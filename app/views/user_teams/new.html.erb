@@ -1,0 +1,85 @@
+<% content_for :title, "Create Team - DreamRails" %>
+
+<%= form_with url: contest_team_path(@contest), scope: :user_team, method: :post, data: { controller: "team-builder" }, class: "grid gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]" do |form| %>
+  <div class="space-y-5">
+    <div class="rounded-lg border border-slate-800 bg-slate-900 p-5">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p class="text-sm font-semibold text-emerald-300"><%= @contest.match.matchup %></p>
+          <h1 class="mt-2 text-3xl font-bold">Create Team</h1>
+          <p class="mt-2 text-slate-400"><%= @contest.name %> closes at <%= @contest.match.lock_time.strftime("%b %-d, %l:%M %p") %></p>
+        </div>
+        <div class="rounded-lg border border-slate-800 bg-slate-950 p-4">
+          <p class="text-sm text-slate-400">Entry fee</p>
+          <p class="mt-1 font-mono text-xl font-bold"><%= money(@contest.entry_fee) %></p>
+        </div>
+      </div>
+    </div>
+
+    <% if @team_errors.present? %>
+      <div class="rounded-lg border border-red-500/40 bg-red-500/10 p-4 text-red-100">
+        <p class="font-semibold">Team needs changes</p>
+        <ul class="mt-2 list-disc space-y-1 pl-5 text-sm">
+          <% @team_errors.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="flex flex-wrap gap-2">
+      <% [["All", "all"], ["WK", "wicket_keeper"], ["BAT", "batsman"], ["AR", "all_rounder"], ["BOW", "bowler"]].each do |label, role| %>
+        <button type="button" class="btn-secondary" data-team-builder-target="filterButton" data-role="<%= role %>" data-action="team-builder#filter"><%= label %></button>
+      <% end %>
+    </div>
+
+    <section class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+      <%= render partial: "components/player_card", collection: @match_players, as: :match_player %>
+    </section>
+  </div>
+
+  <aside class="xl:sticky xl:top-24 xl:self-start">
+    <div class="card space-y-5">
+      <div>
+        <%= form.label :team_name, class: "text-sm font-semibold text-slate-300" %>
+        <%= form.text_field :team_name, value: "#{current_user.username}'s XI", class: "mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-3 text-slate-100 outline-none focus:border-emerald-500" %>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div class="rounded-lg bg-slate-950 p-3">
+          <p class="text-xs text-slate-500">Players</p>
+          <p class="mt-1 font-mono text-xl font-bold"><span data-team-builder-target="totalCount">0</span>/11</p>
+        </div>
+        <div class="rounded-lg bg-slate-950 p-3">
+          <p class="text-xs text-slate-500">Credits left</p>
+          <p class="mt-1 font-mono text-xl font-bold"><span data-team-builder-target="remaining">100.0</span></p>
+        </div>
+      </div>
+
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between"><span class="text-slate-400">WK</span><span class="font-mono" data-team-builder-target="wkCount">0/1-4</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">BAT</span><span class="font-mono" data-team-builder-target="batCount">0/3-6</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">AR</span><span class="font-mono" data-team-builder-target="arCount">0/1-4</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">BOW</span><span class="font-mono" data-team-builder-target="bowCount">0/3-6</span></div>
+      </div>
+
+      <div class="rounded-lg border border-slate-800 bg-slate-950 p-3">
+        <p class="text-xs text-slate-500">Team spread</p>
+        <p class="mt-1 text-sm" data-team-builder-target="teamSpread">No players selected</p>
+      </div>
+
+      <div class="rounded-lg border border-slate-800 bg-slate-950 p-3">
+        <p class="text-xs text-slate-500">Captain picks</p>
+        <p class="mt-1 text-sm" data-team-builder-target="captainSummary">Captain and Vice-Captain pending</p>
+      </div>
+
+      <p class="text-sm text-amber-200" data-team-builder-target="validationMessage">Select 11 players to submit.</p>
+
+      <div data-team-builder-target="selectedInputs"></div>
+      <%= form.hidden_field :captain_id, data: { team_builder_target: "captainInput" } %>
+      <%= form.hidden_field :vice_captain_id, data: { team_builder_target: "viceCaptainInput" } %>
+
+      <%= form.submit "Submit team", class: "btn-primary w-full", data: { team_builder_target: "submitButton" }, disabled: true %>
+    </div>
+  </aside>
+<% end %>

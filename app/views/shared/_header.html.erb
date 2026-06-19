@@ -1,0 +1,22 @@
+<header class="fixed inset-x-0 top-0 z-30 border-b border-slate-800 bg-slate-950/95 backdrop-blur">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:pl-72 lg:pr-8">
+    <%= link_to root_path, class: "flex items-center gap-3" do %>
+      <span class="grid h-10 w-10 place-items-center rounded-lg bg-emerald-500 font-black text-slate-950">DR</span>
+      <span>
+        <span class="block text-lg font-bold leading-5">DreamRails</span>
+        <span class="block text-xs text-slate-400">Play-money fantasy cricket</span>
+      </span>
+    <% end %>
+
+    <nav class="hidden items-center gap-1 md:flex">
+      <%= link_to "Matches", matches_path, class: "nav-link" %>
+      <%= link_to "Contests", contests_path, class: "nav-link" %>
+      <%= link_to "Leaderboard", leaderboard_path, class: "nav-link" %>
+    </nav>
+
+    <%= link_to wallet_path, class: "rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm font-semibold text-emerald-200" do %>
+      <span class="text-slate-400">Wallet</span>
+      <span class="ml-2 font-mono"><%= money(current_user.virtual_balance) %></span>
+    <% end %>
+  </div>
+</header>

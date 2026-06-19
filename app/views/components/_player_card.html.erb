@@ -1,0 +1,25 @@
+<article
+  class="player-card"
+  data-team-builder-target="player"
+  data-player-id="<%= match_player.player_id %>"
+  data-player-role="<%= match_player.role %>"
+  data-player-team="<%= match_player.team %>"
+  data-player-price="<%= match_player.base_price %>">
+  <div class="flex items-center gap-3">
+    <div class="avatar"><%= initials(match_player.short_name) %></div>
+    <div class="min-w-0 flex-1">
+      <div class="flex items-center gap-2">
+        <p class="truncate font-semibold"><%= match_player.name %></p>
+        <span class="role-badge <%= role_class(match_player.role) %>"><%= match_player.role_label %></span>
+      </div>
+      <p class="mt-1 text-sm text-slate-400"><%= match_player.team %> &middot; <%= match_player.country %></p>
+    </div>
+    <p class="font-mono text-sm font-semibold"><%= credits(match_player.base_price) %></p>
+  </div>
+
+  <div class="mt-4 grid grid-cols-[1fr_auto_auto] gap-2">
+    <button type="button" class="btn-secondary justify-center" data-action="team-builder#togglePlayer" data-team-builder-target="toggleButton">Add</button>
+    <button type="button" class="icon-choice" data-action="team-builder#setCaptain" title="Captain">C</button>
+    <button type="button" class="icon-choice" data-action="team-builder#setViceCaptain" title="Vice-Captain">VC</button>
+  </div>
+</article>

@@ -1,0 +1,39 @@
+<article class="card">
+  <div class="flex items-start justify-between gap-3">
+    <div>
+      <p class="text-sm text-slate-400"><%= contest.match.matchup %></p>
+      <h3 class="mt-1 text-lg font-semibold"><%= contest.name %></h3>
+    </div>
+    <span class="badge <%= status_class(contest.status) %>"><%= contest.status.humanize %></span>
+  </div>
+
+  <div class="mt-5 grid grid-cols-3 gap-3 text-sm">
+    <div>
+      <p class="text-slate-500">Entry</p>
+      <p class="mt-1 font-mono font-semibold"><%= money(contest.entry_fee) %></p>
+    </div>
+    <div>
+      <p class="text-slate-500">Prize</p>
+      <p class="mt-1 font-mono font-semibold"><%= money(contest.prize_pool) %></p>
+    </div>
+    <div>
+      <p class="text-slate-500">Winners</p>
+      <p class="mt-1 font-mono font-semibold"><%= contest.winner_count %></p>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <div class="flex justify-between text-xs text-slate-400">
+      <span><%= contest.filled_spots %>/<%= contest.total_spots %> spots</span>
+      <span><%= contest.progress_percentage %>%</span>
+    </div>
+    <div class="mt-2 h-2 overflow-hidden rounded-full bg-slate-800">
+      <div class="h-full rounded-full bg-emerald-500" style="width: <%= contest.progress_percentage %>%"></div>
+    </div>
+  </div>
+
+  <div class="mt-5 flex items-center justify-between gap-3">
+    <span class="badge badge-muted"><%= contest_type_label(contest) %></span>
+    <%= link_to contest.user_teams.exists?(user: current_user) ? "View" : "Join", contest.user_teams.exists?(user: current_user) ? contest_path(contest) : new_contest_team_path(contest), class: "btn-primary" %>
+  </div>
+</article>

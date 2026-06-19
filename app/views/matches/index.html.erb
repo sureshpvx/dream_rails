@@ -1,0 +1,23 @@
+<% content_for :title, "Matches - DreamRails" %>
+
+<section class="space-y-5">
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="text-sm font-semibold text-emerald-300">Cricket slate</p>
+      <h1 class="mt-2 text-3xl font-bold">Matches</h1>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <% [["All", nil], ["Upcoming", "upcoming"], ["Live", "live"], ["Completed", "completed"]].each do |label, status| %>
+        <%= link_to label, matches_path(status: status), class: "btn-secondary #{'border-emerald-500 text-emerald-200' if @status == status}" %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @matches.any? %>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <%= render partial: "components/match_card", collection: @matches, as: :match %>
+    </div>
+  <% else %>
+    <%= render "shared/empty_state", title: "No matches right now", body: "Check back later for upcoming cricket action." %>
+  <% end %>
+</section>

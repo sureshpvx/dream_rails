@@ -1,0 +1,36 @@
+<% content_for :title, "#{@user_team.team_name} - DreamRails" %>
+
+<section class="space-y-6">
+  <div class="rounded-lg border border-slate-800 bg-slate-900 p-5">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+      <div>
+        <p class="text-sm font-semibold text-emerald-300"><%= link_to @user_team.contest.name, contest_path(@user_team.contest) %></p>
+        <h1 class="mt-2 text-3xl font-bold"><%= @user_team.team_name %></h1>
+        <p class="mt-2 text-slate-400"><%= @user_team.match.matchup %></p>
+      </div>
+      <div class="grid grid-cols-3 gap-3 text-center">
+        <div class="rounded-lg bg-slate-950 p-3"><p class="text-xs text-slate-500">Points</p><p class="mt-1 font-mono text-xl font-bold"><%= @user_team.total_points %></p></div>
+        <div class="rounded-lg bg-slate-950 p-3"><p class="text-xs text-slate-500">Rank</p><p class="mt-1 font-mono text-xl font-bold"><%= @user_team.rank || "-" %></p></div>
+        <div class="rounded-lg bg-slate-950 p-3"><p class="text-xs text-slate-500">Prize</p><p class="mt-1 font-mono text-xl font-bold"><%= money(@user_team.prize_won) %></p></div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <h2 class="mb-3 text-xl font-semibold">Selected XI</h2>
+    <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+      <% @user_team.user_team_players.includes(:player).each do |team_player| %>
+        <div class="flex items-center gap-3 rounded-lg border border-slate-800 bg-slate-900 p-3">
+          <div class="avatar"><%= initials(team_player.player.short_name) %></div>
+          <div class="min-w-0 flex-1">
+            <p class="truncate font-semibold"><%= team_player.player.name %></p>
+            <p class="text-sm text-slate-400"><%= team_player.player.team %></p>
+          </div>
+          <% if team_player.is_captain? %><span class="icon-choice is-active">C</span><% end %>
+          <% if team_player.is_vice_captain? %><span class="icon-choice is-active">VC</span><% end %>
+          <span class="role-badge <%= role_class(team_player.player.role) %>"><%= team_player.player.role_label %></span>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</section>

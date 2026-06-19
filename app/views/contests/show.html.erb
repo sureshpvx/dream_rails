@@ -1,0 +1,96 @@
+<% content_for :title, "#{@contest.name} - DreamRails" %>
+
+<section class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
+  <div class="space-y-6">
+    <div class="rounded-lg border border-slate-800 bg-slate-900 p-5">
+      <div class="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+        <div>
+          <p class="text-sm font-semibold text-emerald-300"><%= link_to @contest.match.matchup, match_path(@contest.match) %></p>
+          <h1 class="mt-2 text-3xl font-bold"><%= @contest.name %></h1>
+          <p class="mt-2 text-slate-400"><%= @contest.match.venue %> &middot; <%= @contest.match.match_date.strftime("%b %-d, %l:%M %p") %></p>
+        </div>
+        <span class="badge <%= status_class(@contest.status) %>"><%= @contest.status.humanize %></span>
+      </div>
+
+      <div class="mt-6 grid gap-3 sm:grid-cols-4">
+        <div class="rounded-lg bg-slate-950 p-4">
+          <p class="text-sm text-slate-400">Entry</p>
+          <p class="mt-1 font-mono text-xl font-semibold"><%= money(@contest.entry_fee) %></p>
+        </div>
+        <div class="rounded-lg bg-slate-950 p-4">
+          <p class="text-sm text-slate-400">Prize pool</p>
+          <p class="mt-1 font-mono text-xl font-semibold"><%= money(@contest.prize_pool) %></p>
+        </div>
+        <div class="rounded-lg bg-slate-950 p-4">
+          <p class="text-sm text-slate-400">Spots left</p>
+          <p class="mt-1 font-mono text-xl font-semibold"><%= @contest.spots_left %></p>
+        </div>
+        <div class="rounded-lg bg-slate-950 p-4">
+          <p class="text-sm text-slate-400">Winners</p>
+          <p class="mt-1 font-mono text-xl font-semibold"><%= @contest.winner_count %></p>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <div class="flex justify-between text-sm text-slate-400">
+          <span><%= @contest.filled_spots %>/<%= @contest.total_spots %> spots</span>
+          <span><%= @contest.progress_percentage %>% filled</span>
+        </div>
+        <div class="mt-2 h-3 overflow-hidden rounded-full bg-slate-800">
+          <div class="h-full rounded-full bg-emerald-500" style="width: <%= @contest.progress_percentage %>%"></div>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <% if @user_team %>
+          <%= link_to "View my team", user_team_path(@user_team), class: "btn-primary" %>
+        <% elsif @contest.joinable? && !@contest.match.locked? %>
+          <%= link_to "Create team", new_contest_team_path(@contest), class: "btn-primary" %>
+        <% else %>
+          <span class="badge badge-muted">Team entry closed</span>
+        <% end %>
+      </div>
+    </div>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">Leaderboard</h2>
+      <% if @leaderboard.any? %>
+        <div class="overflow-hidden rounded-lg border border-slate-800">
+          <table class="w-full min-w-[34rem] divide-y divide-slate-800 bg-slate-900 text-left text-sm">
+            <thead class="bg-slate-950 text-slate-400">
+              <tr>
+                <th class="px-4 py-3">Rank</th>
+                <th class="px-4 py-3">User</th>
+                <th class="px-4 py-3">Team</th>
+                <th class="px-4 py-3 text-right">Points</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <% @leaderboard.each_with_index do |team, index| %>
+                <tr class="<%= "bg-emerald-500/10" if team.user_id == current_user.id %>">
+                  <td class="px-4 py-3 font-mono"><%= team.rank || index + 1 %></td>
+                  <td class="px-4 py-3 font-semibold"><%= team.user.username %></td>
+                  <td class="px-4 py-3"><%= team.team_name %></td>
+                  <td class="px-4 py-3 text-right font-mono"><%= team.total_points %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <%= render "shared/empty_state", title: "No teams yet", body: "Join this contest and build your dream team." %>
+      <% end %>
+    </section>
+  </div>
+
+  <aside class="space-y-4">
+    <div class="card">
+      <h2 class="text-lg font-semibold">Prize Rules</h2>
+      <dl class="mt-4 space-y-3 text-sm">
+        <div class="flex justify-between gap-3"><dt class="text-slate-400">Type</dt><dd><%= contest_type_label(@contest) %></dd></div>
+        <div class="flex justify-between gap-3"><dt class="text-slate-400">Platform fee</dt><dd><%= @contest.platform_fee_percentage %>%</dd></div>
+        <div class="flex justify-between gap-3"><dt class="text-slate-400">Guaranteed</dt><dd><%= @contest.guaranteed_prize? ? "Yes" : "No" %></dd></div>
+      </dl>
+    </div>
+  </aside>
+</section>
