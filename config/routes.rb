@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   resources :user_teams, only: [:index, :show]
   resource :wallet, only: :show, controller: "wallet"
 
+  resources :notifications, only: [:index] do
+    post :mark_all_read, on: :collection
+    patch :mark_read, on: :member
+  end
+
   namespace :api do
     namespace :v1 do
       resources :matches, only: [:index, :show] do

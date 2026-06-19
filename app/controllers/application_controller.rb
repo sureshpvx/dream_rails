@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   before_action :ensure_demo_user
-  helper_method :current_user
+  helper_method :current_user, :unread_notification_count
 
   private
 
@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
       session[:user_id] = user.id
       user
     end
+  end
+
+  def unread_notification_count
+    @unread_notification_count ||= current_user.notifications.unread.count
   end
 
   def ensure_demo_user
