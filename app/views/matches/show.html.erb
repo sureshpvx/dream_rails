@@ -1,28 +1,28 @@
 <% content_for :title, "#{@match.matchup} - DreamRails" %>
 
 <section class="space-y-6">
-  <div class="rounded-lg border border-slate-800 bg-slate-900 p-5">
+  <div class="rounded-lg border border-gray-200 bg-white p-6">
     <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
       <div>
         <div class="flex items-center gap-3">
           <span class="badge <%= status_class(@match.status) %>"><%= @match.status.humanize %></span>
           <% if @match.live? %><span class="live-dot"></span><% end %>
         </div>
-        <h1 class="mt-4 text-3xl font-bold"><%= @match.team_a %> vs <%= @match.team_b %></h1>
-        <p class="mt-2 text-slate-400"><%= @match.match_date.strftime("%B %-d, %Y at %l:%M %p") %> at <%= @match.venue %></p>
+        <h1 class="mt-4 text-3xl font-bold text-gray-900"><%= @match.team_a %> vs <%= @match.team_b %></h1>
+        <p class="mt-2 text-gray-500"><%= @match.match_date.strftime("%B %-d, %Y at %l:%M %p") %> at <%= @match.venue %></p>
       </div>
-      <div class="rounded-lg border border-slate-800 bg-slate-950 p-4 text-right">
-        <p class="text-sm text-slate-400">Team lock</p>
-        <p class="mt-1 font-mono text-2xl font-bold"><%= @match.locked? ? "Locked" : @match.lock_countdown %></p>
-        <p class="mt-2 text-sm text-slate-400"><%= @match.score_summary %></p>
+      <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 text-right">
+        <p class="text-sm text-gray-500">Team lock</p>
+        <p class="mt-1 font-mono text-2xl font-bold text-gray-900"><%= @match.locked? ? "Locked" : @match.lock_countdown %></p>
+        <p class="mt-2 text-sm text-gray-500"><%= @match.score_summary %></p>
       </div>
     </div>
   </div>
 
   <section>
     <div class="mb-3 flex items-center justify-between">
-      <h2 class="text-xl font-semibold">Contests</h2>
-      <%= link_to "All contests", match_contests_path(@match), class: "text-sm font-semibold text-emerald-300" %>
+      <h2 class="text-xl font-semibold text-gray-900">Contests</h2>
+      <%= link_to "All contests", match_contests_path(@match), class: "text-sm font-semibold text-green-600 hover:text-green-700" %>
     </div>
     <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
       <%= render partial: "components/contest_card", collection: @contests, as: :contest %>
@@ -30,17 +30,17 @@
   </section>
 
   <section>
-    <h2 class="mb-3 text-xl font-semibold">Squads</h2>
+    <h2 class="mb-3 text-xl font-semibold text-gray-900">Squads</h2>
     <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
       <% @squad.each do |match_player| %>
-        <div class="flex items-center gap-3 rounded-lg border border-slate-800 bg-slate-900 p-3">
+        <div class="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3">
           <div class="avatar"><%= initials(match_player.short_name) %></div>
           <div class="min-w-0 flex-1">
-            <p class="truncate font-semibold"><%= match_player.name %></p>
-            <p class="text-sm text-slate-400"><%= match_player.team %></p>
+            <p class="truncate font-semibold text-gray-900"><%= match_player.name %></p>
+            <p class="text-sm text-gray-500"><%= match_player.team %></p>
           </div>
           <span class="role-badge <%= role_class(match_player.role) %>"><%= match_player.role_label %></span>
-          <span class="font-mono text-sm"><%= credits(match_player.base_price) %></span>
+          <span class="font-mono text-sm text-gray-700"><%= credits(match_player.base_price) %></span>
         </div>
       <% end %>
     </div>

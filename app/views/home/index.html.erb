@@ -2,16 +2,16 @@
 
 <section class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
   <div class="space-y-6">
-    <div class="rounded-lg border border-slate-800 bg-slate-900 p-5">
+    <div class="rounded-lg border border-gray-200 bg-white p-6">
       <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <p class="text-sm font-semibold text-emerald-300">Build Your Dream Team. Win Virtual Glory.</p>
-          <h1 class="mt-2 text-3xl font-bold sm:text-4xl">DreamRails fantasy cricket</h1>
-          <p class="mt-3 max-w-2xl text-slate-400">Play-money contests, live leaderboards, squad budgets, and fantasy points built around real cricket rules.</p>
+          <p class="text-sm font-semibold text-green-600">Build Your Dream Team. Win Virtual Glory.</p>
+          <h1 class="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl">DreamRails fantasy cricket</h1>
+          <p class="mt-3 max-w-2xl text-gray-600">Play-money contests, live leaderboards, squad budgets, and fantasy points built around real cricket rules.</p>
         </div>
-        <div class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-4">
-          <p class="text-sm text-slate-400">Virtual balance</p>
-          <p class="mt-1 font-mono text-2xl font-bold text-emerald-200"><%= money(current_user.virtual_balance) %></p>
+        <div class="wallet-banner">
+          <p class="text-sm text-gray-600">Virtual balance</p>
+          <p class="mt-1 font-mono text-2xl font-bold text-green-700"><%= money(current_user.virtual_balance) %></p>
         </div>
       </div>
     </div>
@@ -19,8 +19,8 @@
     <% if @featured_match %>
       <section>
         <div class="mb-3 flex items-center justify-between">
-          <h2 class="text-xl font-semibold">Featured Match</h2>
-          <%= link_to "All matches", matches_path, class: "text-sm font-semibold text-emerald-300" %>
+          <h2 class="text-xl font-semibold text-gray-900">Featured Match</h2>
+          <%= link_to "All matches", matches_path, class: "text-sm font-semibold text-green-600 hover:text-green-700" %>
         </div>
         <%= render "components/match_card", match: @featured_match %>
       </section>
@@ -28,8 +28,8 @@
 
     <section>
       <div class="mb-3 flex items-center justify-between">
-        <h2 class="text-xl font-semibold">Open Contests</h2>
-        <%= link_to "Browse contests", contests_path, class: "text-sm font-semibold text-emerald-300" %>
+        <h2 class="text-xl font-semibold text-gray-900">Open Contests</h2>
+        <%= link_to "Browse contests", contests_path, class: "text-sm font-semibold text-green-600 hover:text-green-700" %>
       </div>
       <% if @contests.any? %>
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -42,8 +42,8 @@
 
     <section>
       <div class="mb-3 flex items-center justify-between">
-        <h2 class="text-xl font-semibold">Upcoming Matches</h2>
-        <%= link_to "Matches", matches_path, class: "text-sm font-semibold text-emerald-300" %>
+        <h2 class="text-xl font-semibold text-gray-900">Upcoming Matches</h2>
+        <%= link_to "Matches", matches_path, class: "text-sm font-semibold text-green-600 hover:text-green-700" %>
       </div>
       <% if @matches.any? %>
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -58,28 +58,28 @@
   <aside class="space-y-6">
     <section class="card">
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold">Leaderboard</h2>
-        <%= link_to "Full", leaderboard_path, class: "text-sm font-semibold text-emerald-300" %>
+        <h2 class="text-lg font-semibold text-gray-900">Leaderboard</h2>
+        <%= link_to "Full", leaderboard_path, class: "text-sm font-semibold text-green-600 hover:text-green-700" %>
       </div>
       <div class="mt-4 space-y-3">
         <% @leaderboard.each_with_index do |team, index| %>
-          <div class="flex items-center justify-between rounded-lg bg-slate-950 p-3">
+          <div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
             <div>
-              <p class="text-sm font-semibold"><%= index + 1 %>. <%= team.user.username %></p>
-              <p class="text-xs text-slate-500"><%= team.contest.name %></p>
+              <p class="text-sm font-semibold text-gray-900"><%= index + 1 %>. <%= team.user.username %></p>
+              <p class="text-xs text-gray-500"><%= team.contest.name %></p>
             </div>
-            <p class="font-mono font-semibold"><%= team.total_points %></p>
+            <p class="font-mono font-semibold text-gray-900"><%= team.total_points %></p>
           </div>
         <% end %>
         <% if @leaderboard.empty? %>
-          <p class="text-sm text-slate-400">No submitted teams yet.</p>
+          <p class="text-sm text-gray-500">No submitted teams yet.</p>
         <% end %>
       </div>
     </section>
 
     <section class="card">
-      <h2 class="text-lg font-semibold">Play-Money Notice</h2>
-      <p class="mt-3 text-sm leading-6 text-slate-400">All coins in DreamRails are virtual and have zero monetary value. Real deposits and withdrawals are intentionally unavailable.</p>
+      <h2 class="text-lg font-semibold text-gray-900">Play-Money Notice</h2>
+      <p class="mt-3 text-sm leading-6 text-gray-600">All coins in DreamRails are virtual and have zero monetary value. Real deposits and withdrawals are intentionally unavailable.</p>
     </section>
   </aside>
 </section>

@@ -3,12 +3,12 @@
 <section class="space-y-5">
   <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
     <div>
-      <p class="text-sm font-semibold text-emerald-300">Cricket slate</p>
-      <h1 class="mt-2 text-3xl font-bold">Matches</h1>
+      <p class="text-sm font-semibold text-green-600">Cricket slate</p>
+      <h1 class="mt-2 text-3xl font-bold text-gray-900">Matches</h1>
     </div>
     <div class="flex flex-wrap gap-2">
       <% [["All", nil], ["Upcoming", "upcoming"], ["Live", "live"], ["Completed", "completed"]].each do |label, status| %>
-        <%= link_to label, matches_path(status: status), class: "btn-secondary #{'border-emerald-500 text-emerald-200' if @status == status}" %>
+        <%= link_to label, matches_path(status: status), class: "btn-secondary #{'border-green-500 text-green-600' if @status == status}" %>
       <% end %>
     </div>
   </div>

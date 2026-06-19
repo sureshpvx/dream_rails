@@ -1,3 +1,22 @@
+:root {
+  --color-primary: #16a34a;
+  --color-primary-dark: #15803d;
+  --color-primary-light: #22c55e;
+  --color-secondary: #dc2626;
+  --color-secondary-dark: #b91c1c;
+  --color-white: #ffffff;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+}
+
 html {
   letter-spacing: 0;
 }
@@ -11,6 +30,7 @@ body {
 .bottom-nav-link,
 .btn-primary,
 .btn-secondary,
+.btn-danger,
 .icon-choice {
   align-items: center;
   border-radius: 8px;
@@ -21,19 +41,19 @@ body {
 }
 
 .nav-link {
-  color: #cbd5e1;
+  color: var(--color-gray-600);
   padding: 0.5rem 0.75rem;
 }
 
 .nav-link:hover,
 .sidebar-link:hover,
 .bottom-nav-link:hover {
-  background: #1e293b;
-  color: #f8fafc;
+  background: var(--color-gray-100);
+  color: var(--color-gray-900);
 }
 
 .sidebar-link {
-  color: #cbd5e1;
+  color: var(--color-gray-600);
   display: flex;
   padding: 0.75rem;
 }
@@ -41,15 +61,18 @@ body {
 .bottom-nav-link {
   min-height: 4rem;
   padding: 0.5rem 0.25rem;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.75rem;
 }
 
 .card,
 .player-card {
-  background: #0f172a;
-  border: 1px solid #1e293b;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 30%);
-  padding: 1rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+  padding: 1.25rem;
 }
 
 .card {
@@ -57,20 +80,20 @@ body {
 }
 
 .card:hover {
-  border-color: #334155;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 40%);
+  border-color: var(--color-gray-300);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
   transform: translateY(-2px);
 }
 
 .btn-primary {
-  background: #10b981;
-  color: #020617;
+  background: var(--color-primary);
+  color: var(--color-white);
   min-height: 2.5rem;
-  padding: 0 1rem;
+  padding: 0 1.25rem;
 }
 
 .btn-primary:hover {
-  background: #34d399;
+  background: var(--color-primary-dark);
 }
 
 .btn-primary:disabled,
@@ -80,15 +103,27 @@ body {
 }
 
 .btn-secondary {
-  background: #1e293b;
-  border: 1px solid #334155;
-  color: #f8fafc;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-gray-700);
   min-height: 2.5rem;
-  padding: 0 0.875rem;
+  padding: 0 1rem;
 }
 
 .btn-secondary:hover {
-  background: #334155;
+  background: var(--color-gray-50);
+  border-color: var(--color-gray-400);
+}
+
+.btn-danger {
+  background: var(--color-secondary);
+  color: var(--color-white);
+  min-height: 2.5rem;
+  padding: 0 1.25rem;
+}
+
+.btn-danger:hover {
+  background: var(--color-secondary-dark);
 }
 
 .badge,
@@ -98,38 +133,38 @@ body {
   font-size: 0.75rem;
   font-weight: 700;
   line-height: 1;
-  padding: 0.35rem 0.55rem;
+  padding: 0.35rem 0.6rem;
   white-space: nowrap;
 }
 
 .badge-live {
-  background: #7f1d1d;
-  border: 1px solid #ef4444;
-  color: #fecaca;
+  background: #fef2f2;
+  border: 1px solid var(--color-secondary);
+  color: var(--color-secondary);
 }
 
 .badge-info {
-  background: #1e3a8a;
+  background: #eff6ff;
   border: 1px solid #3b82f6;
-  color: #bfdbfe;
+  color: #1d4ed8;
 }
 
 .badge-success {
-  background: #064e3b;
-  border: 1px solid #10b981;
-  color: #a7f3d0;
+  background: #f0fdf4;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary-dark);
 }
 
 .badge-warning {
-  background: #78350f;
+  background: #fffbeb;
   border: 1px solid #f59e0b;
-  color: #fde68a;
+  color: #b45309;
 }
 
 .badge-muted {
-  background: #1f2937;
-  border: 1px solid #4b5563;
-  color: #d1d5db;
+  background: var(--color-gray-100);
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-gray-600);
 }
 
 .role-badge {
@@ -138,23 +173,23 @@ body {
 }
 
 .role-wk {
-  background: #312e81;
-  color: #ddd6fe;
+  background: #f5f3ff;
+  color: #6d28d9;
 }
 
 .role-bat {
-  background: #7f1d1d;
-  color: #fecaca;
+  background: #fef2f2;
+  color: var(--color-secondary-dark);
 }
 
 .role-ar {
-  background: #064e3b;
-  color: #a7f3d0;
+  background: #f0fdf4;
+  color: var(--color-primary-dark);
 }
 
 .role-bow {
-  background: #1e3a8a;
-  color: #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
 }
 
 .team-mark,
@@ -173,18 +208,18 @@ body {
 }
 
 .team-a {
-  background: #ec1c24;
+  background: var(--color-secondary);
   color: white;
 }
 
 .team-b {
-  background: #004ba0;
+  background: #2563eb;
   color: white;
 }
 
 .avatar {
-  background: #1e293b;
-  color: #f8fafc;
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
   flex: 0 0 2.75rem;
   height: 2.75rem;
   width: 2.75rem;
@@ -192,12 +227,13 @@ body {
 
 .player-card {
   min-height: 9.25rem;
-  transition: border-color 150ms ease, background-color 150ms ease;
+  transition: border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
 }
 
 .player-card.is-selected {
-  background: #10231e;
-  border-color: #10b981;
+  background: #f0fdf4;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
 }
 
 .player-card.is-filtered-out {
@@ -205,23 +241,27 @@ body {
 }
 
 .icon-choice {
-  background: #020617;
-  border: 1px solid #334155;
-  color: #cbd5e1;
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-gray-600);
   height: 2.5rem;
   min-width: 2.5rem;
   padding: 0 0.5rem;
 }
 
+.icon-choice:hover {
+  background: var(--color-gray-100);
+}
+
 .icon-choice.is-active {
-  background: #f59e0b;
-  border-color: #fbbf24;
-  color: #020617;
+  background: #fbbf24;
+  border-color: #f59e0b;
+  color: #78350f;
 }
 
 .live-dot {
   animation: live-pulse 1500ms ease-in-out infinite;
-  background: #ef4444;
+  background: var(--color-secondary);
   border-radius: 999px;
   height: 0.625rem;
   width: 0.625rem;
@@ -238,6 +278,121 @@ body {
     opacity: 0.5;
     transform: scale(1.2);
   }
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--color-gray-300);
+  background: var(--color-white);
+  padding: 0.75rem 1rem;
+  color: var(--color-gray-900);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.input-field:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+
+.table-container {
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--color-gray-200);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-white);
+}
+
+thead {
+  background: var(--color-gray-50);
+}
+
+th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-gray-600);
+  font-size: 0.875rem;
+}
+
+td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--color-gray-200);
+  color: var(--color-gray-800);
+  font-size: 0.875rem;
+}
+
+tbody tr:hover {
+  background: var(--color-gray-50);
+}
+
+.highlight-row {
+  background: #f0fdf4 !important;
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-muted {
+  color: var(--color-gray-500);
+}
+
+.progress-bar {
+  height: 0.5rem;
+  background: var(--color-gray-200);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-primary);
+  transition: width 300ms ease;
+}
+
+.stat-card {
+  background: var(--color-gray-50);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.prize-banner {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.wallet-banner {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.notice-banner {
+  background: #fffbeb;
+  border: 1px solid #f59e0b;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.error-banner {
+  background: #fef2f2;
+  border: 1px solid var(--color-secondary);
+  border-radius: 12px;
+  padding: 1rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

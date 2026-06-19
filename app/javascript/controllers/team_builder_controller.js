@@ -109,8 +109,8 @@ export default class extends Controller {
     })
 
     this.filterButtonTargets.forEach((button) => {
-      button.classList.toggle("border-emerald-500", button.dataset.role === this.activeRole)
-      button.classList.toggle("text-emerald-200", button.dataset.role === this.activeRole)
+      button.classList.toggle("border-green-500", button.dataset.role === this.activeRole)
+      button.classList.toggle("text-green-600", button.dataset.role === this.activeRole)
     })
   }
 
